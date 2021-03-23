@@ -1,13 +1,15 @@
 from ma import ma
 from models.thread import ThreadModel
+from marshmallow_sqlalchemy.fields import Nested
+from schemas.post import PostSchema
 
-class ThreadSchema(ma.SQLAlchemySchema):
+
+class ThreadSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ThreadModel
         load_instance = True
-    id = ma.auto_field()
-    user_id = ma.auto_field()
-    posts = ma.auto_field()
+        include_relationships = True
+    posts = Nested(PostSchema, many=True, exclude=("thread",))
 
 
     
