@@ -11,5 +11,7 @@ class PostSchema(ma.SQLAlchemySchema):
     contents = ma.auto_field()
     date = ma.auto_field()
     user_id = ma.auto_field()
+    thread_id = ma.auto_field()
+
 
 

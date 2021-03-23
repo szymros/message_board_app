@@ -7,6 +7,8 @@ class UserModel(db.Model):
     password = db.Column(db.String(20), nullable=False)
     
     posts = db.relationship('PostModel', lazy=True, backref='user')
+    threads = db.relationship('ThreadModel', lazy=True, backref='user')
+
 
     @classmethod
     def find_by_id(cls, id:int):

@@ -8,7 +8,8 @@ from db import db
 from ma import ma
 
 from resources.user import UserResource, CreateUser
-from resources.post import PostResource
+from resources.post import PostResource, CreatePost
+from resources.thread import ThreadResource, CreateThread
 
 app = Flask(__name__)
 
@@ -27,7 +28,11 @@ api = Api(app)
 
 api.add_resource(UserResource, '/user/<string:name>')
 api.add_resource(CreateUser, '/register')
-api.add_resource(PostResource, '/post')
+api.add_resource(PostResource, '/post/<string:title>')
+api.add_resource(CreatePost, '/create_post')
+api.add_resource(ThreadResource, '/thread/<int:id>')
+api.add_resource(CreateThread, '/create_thread')
+
 
 jwt = JWTManager(app)
 
