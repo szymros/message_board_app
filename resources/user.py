@@ -25,6 +25,5 @@ class CreateUser(Resource):
             return {'msg' : 'user already exists'}
         new_user = user_schema.load(data)
         if new_user:
-            db.session.add(new_user)
-            db.session.commit()
+            new_user.save_to_db()
             return user_schema.dump(new_user), 200

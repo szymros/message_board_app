@@ -8,3 +8,4 @@ class UserSchema(ma.SQLAlchemySchema):
     id = ma.auto_field()
     username = ma.auto_field()
     password = ma.auto_field()
+    posts = ma.auto_field()

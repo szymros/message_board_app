@@ -8,13 +8,14 @@ from db import db
 from ma import ma
 
 from resources.user import UserResource, CreateUser
+from resources.post import PostResource
 
 app = Flask(__name__)
 
 load_dotenv()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("SQLALCHEMY_URI")
-app.config['SQLACHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
@@ -26,6 +27,7 @@ api = Api(app)
 
 api.add_resource(UserResource, '/user/<string:name>')
 api.add_resource(CreateUser, '/register')
+api.add_resource(PostResource, '/post')
 
 jwt = JWTManager(app)
 
