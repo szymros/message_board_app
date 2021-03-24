@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from schemas.post import PostSchema
 from models.post import PostModel
+import requests
 
 post_schema = PostSchema()
 
@@ -25,7 +26,13 @@ class CreatePost(Resource):
     @classmethod
     def post(cls):
         json = request.get_json()
+        if not json["thread_id"]:
+            response = requests.post("http://127.0.0.1:5000/create_thread", data={},
+                                    headers={"Content-Type" : "application/json"})
+            json["thread_id"] = response.json()['id']
         new_post = post_schema.load(json)
         if new_post:
             new_post.save_to_db()
             return post_schema.dump(new_post), 200
+
+        

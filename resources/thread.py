@@ -25,8 +25,8 @@ class ThreadResource(Resource):
 class CreateThread(Resource):
     @classmethod
     def post(cls):
-        data = request.get_json()
-        new_thread = thread_schema.load(data)
+        #data = request.get_json()
+        new_thread = ThreadModel()
         if new_thread:
             new_thread.save_to_db()
             return thread_schema.dump(new_thread), 200

@@ -1,0 +1,7 @@
+- check where unit tests may be added (for sure createpost)
+- add unit tests
+- add jwt tokens 
+- add image upload to posts?
+- create some frontend?
+- migrate to a online db
+

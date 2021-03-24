@@ -7,6 +7,10 @@ class UserModel(db.Model):
     password = db.Column(db.String(20), nullable=False)
     
     posts = db.relationship('PostModel', lazy=True, backref='user')
+    #backref is just a short cut to not put another db.relationship in postmodel
+    #lazy is a loader option of relationships im not sure how to it really wokrs
+    #todo read docs about lazy
+    
 
     @classmethod
     def find_by_id(cls, id:int):

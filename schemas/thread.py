@@ -9,7 +9,7 @@ class ThreadSchema(ma.SQLAlchemyAutoSchema):
         model = ThreadModel
         load_instance = True
         include_relationships = True
-        exclude = ("id",)
+        #exclude = ("id",)
     posts = Nested(PostSchema, many=True, exclude=("thread","id"))
 
 

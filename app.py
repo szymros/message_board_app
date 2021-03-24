@@ -32,8 +32,6 @@ api.add_resource(CreateThread, '/create_thread')
 
 jwt = JWTManager(app)
 
-#db.init_app(app)
-#ma.init_app(app)
 
 if __name__ == '__main__':
     db.init_app(app)

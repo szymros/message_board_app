@@ -12,6 +12,7 @@ marshmallow-sqlalchemy = "*"
 flask-jwt-extended = "*"
 python-dotenv = "*"
 flask-uploads = "*"
+requests = "*"
 
 [dev-packages]
 
