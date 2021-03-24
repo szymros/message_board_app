@@ -9,6 +9,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = UserModel
         load_instance = True
         include_relationships = True
+        exclude = ("id",)
         
     #threads = Nested(ThreadSchema, many=True, exclude=("user_id",))
     posts = Nested(PostSchema, many=True, exclude=("user",))

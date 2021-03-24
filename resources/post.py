@@ -7,11 +7,19 @@ post_schema = PostSchema()
 
 class PostResource(Resource):
     @classmethod
-    def get(cls, title:str):
-        post = PostModel.find_by_title(title)
+    def get(cls, id:int):
+        post = PostModel.find_by_id(id)
         if post:
             return post_schema.dump(post)
         return {'msg' : 'post not found'}, 404
+
+    @classmethod
+    def delete(cls, id:int):
+        post = PostModel.find_by_id(id)
+        if post:
+            post.delete_from_db()
+            return {'msg' : 'post has been deleted'}, 200
+
 
 class CreatePost(Resource):
     @classmethod

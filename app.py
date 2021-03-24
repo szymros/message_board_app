@@ -24,7 +24,7 @@ api = Api(app)
 
 api.add_resource(UserResource, '/user/<string:name>')
 api.add_resource(CreateUser, '/register')
-api.add_resource(PostResource, '/post/<string:title>')
+api.add_resource(PostResource, '/post/<int:id>')
 api.add_resource(CreatePost, '/create_post')
 api.add_resource(ThreadResource, '/thread/<int:id>')
 api.add_resource(CreateThread, '/create_thread')

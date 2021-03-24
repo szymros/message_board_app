@@ -15,6 +15,11 @@ class UserResource(Resource):
         else:
             return {'msg' : 'user not found'}, 404
 
+    def delete(cls, id:int):
+        user = UserModel.find_by_id(id)
+        if user:
+            user.delete_from_db()
+            return {'msg' : 'user not found'}, 404
 
 
 class CreateUser(Resource):
