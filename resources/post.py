@@ -1,8 +1,11 @@
 from flask_restful import Resource
 from flask import request
+from flask_jwt_extended import jwt_required, get_jwt, get_jti
+import requests
+
 from schemas.post import PostSchema
 from models.post import PostModel
-import requests
+
 
 post_schema = PostSchema()
 
@@ -25,12 +28,16 @@ class PostResource(Resource):
 
 class CreatePost(Resource):
     @classmethod
+    @jwt_required()
     def post(cls):
         json = request.get_json()
         if not json["thread_id"]:
-            response = requests.post("http://127.0.0.1:5000/create_thread", data={},
-                                    headers={"Content-Type" : "application/json"})
-            if response.json().['msg']:
+            headers = {
+                "Content-Type" : "application/json",
+                "Authorization" : request.headers['Authorization']
+            }
+            response = requests.post("http://127.0.0.1:5000/create_thread", data={}, headers=headers)
+            if response.json().get('msg'):
                 return response.json()
             else:
                 json["thread_id"] = response.json()['id']   

@@ -1,5 +1,7 @@
 from flask_restful import Resource
 from flask import request
+from flask_jwt_extended import jwt_required
+
 from schemas.thread import ThreadSchema
 from models.thread import ThreadModel
 
@@ -15,6 +17,7 @@ class ThreadResource(Resource):
         return{"msg" : "thread not found"}, 404
 
     @classmethod
+    @jwt_required()
     def delete(cls, id:int):
         thread = ThreadModel.find_by_id(id)
         if thread:
@@ -25,6 +28,7 @@ class ThreadResource(Resource):
 
 class CreateThread(Resource):
     @classmethod
+    @jwt_required()
     def post(cls):
         new_thread = ThreadModel()
         if new_thread:

@@ -13,6 +13,7 @@ flask-jwt-extended = "*"
 python-dotenv = "*"
 flask-uploads = "*"
 requests = "*"
+passlib = "*"
 
 [dev-packages]
 
