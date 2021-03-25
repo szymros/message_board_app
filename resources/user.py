@@ -19,16 +19,17 @@ class UserResource(Resource):
         user = UserModel.find_by_id(id)
         if user:
             user.delete_from_db()
-            return {'msg' : 'user not found'}, 404
-
+            return {'msg' : 'user deleted form db'}, 200
+        return {'msg': 'user not found'}, 404
 
 class CreateUser(Resource):
     @classmethod
     def post(cls):
         data = request.get_json()
         if UserModel.find_by_name(data['username']):
-            return {'msg' : 'user already exists'}
+            return {'msg' : 'user already exists'}, 403
         new_user = user_schema.load(data)
         if new_user:
             new_user.save_to_db()
             return user_schema.dump(new_user), 200
+        return {'msg' : 'couldnt create new user'}

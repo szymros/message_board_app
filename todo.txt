@@ -1,5 +1,5 @@
-- check where unit tests may be added (for sure createpost)
-- add unit tests
+- check where unit tests may be added (for sure createpost) -> probably done
+- add unit tests -> probably done
 - add jwt tokens 
 - add image upload to posts?
 - create some frontend?

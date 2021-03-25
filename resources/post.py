@@ -20,6 +20,7 @@ class PostResource(Resource):
         if post:
             post.delete_from_db()
             return {'msg' : 'post has been deleted'}, 200
+        return {'msg' : 'post not found'}
 
 
 class CreatePost(Resource):
@@ -29,10 +30,14 @@ class CreatePost(Resource):
         if not json["thread_id"]:
             response = requests.post("http://127.0.0.1:5000/create_thread", data={},
                                     headers={"Content-Type" : "application/json"})
-            json["thread_id"] = response.json()['id']
+            if response.json().['msg']:
+                return response.json()
+            else:
+                json["thread_id"] = response.json()['id']   
         new_post = post_schema.load(json)
         if new_post:
             new_post.save_to_db()
             return post_schema.dump(new_post), 200
+        return {'msg' : 'couldnt create new post'}
 
         
