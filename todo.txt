@@ -1,4 +1,2 @@
-- add basemodel
-- add salt to hashing
 - add frontend?
 - migrate to better db?
