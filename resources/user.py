@@ -43,12 +43,13 @@ class CreateUser(Resource):
             new_user.save_to_db()
             return user_schema.dump(new_user), 200
         return {'msg' : 'couldnt create new user'}
-
+        
 class UserLogin(Resource):
     @classmethod
     def post(cls):
         data = request.get_json()
         user = UserModel.find_by_name(data['username'])
+        #todo add salt to hash
         if user and pbkdf2_sha256.verify(data['password'], user.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             return{'access_token' : access_token}, 200

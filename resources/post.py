@@ -5,6 +5,7 @@ import requests
 
 from schemas.post import PostSchema
 from models.post import PostModel
+from models.thread import ThreadModel
 
 
 post_schema = PostSchema()
@@ -32,19 +33,11 @@ class CreatePost(Resource):
     def post(cls):
         json = request.get_json()
         if not json["thread_id"]:
-            headers = {
-                "Content-Type" : "application/json",
-                "Authorization" : request.headers['Authorization']
-            }
-            response = requests.post("http://127.0.0.1:5000/create_thread", data={}, headers=headers)
-            if response.json().get('msg'):
-                return response.json()
-            else:
-                json["thread_id"] = response.json()['id']   
-        new_post = post_schema.load(json)
+            new_thread = ThreadModel()
+            new_thread.save_to_db()
+            json["thread_id"] = new_thread.id
+        new_post = post_schema.load(json)   
         if new_post:
             new_post.save_to_db()
             return post_schema.dump(new_post), 200
         return {'msg' : 'couldnt create new post'}
-
-        

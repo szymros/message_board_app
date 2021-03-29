@@ -10,7 +10,7 @@ from blocklist import BLOCKLIST
 
 from resources.user import UserResource, CreateUser, UserLogin, UserLogout
 from resources.post import PostResource, CreatePost
-from resources.thread import ThreadResource, CreateThread
+from resources.thread import ThreadResource
 
 app = Flask(__name__)
 
@@ -32,8 +32,6 @@ api.add_resource(PostResource, '/post/<int:id>')
 api.add_resource(CreatePost, '/create_post')
 
 api.add_resource(ThreadResource, '/thread/<int:id>')
-api.add_resource(CreateThread, '/create_thread')
-
 
 jwt = JWTManager(app)
 

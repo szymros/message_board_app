@@ -1,8 +1,4 @@
-- check where unit tests may be added (for sure createpost) -> probably done
-- add unit tests -> probably done
-- add jwt tokens -> done
-- add password encryption
-- add image upload to posts?
-- create some frontend?
-- migrate to a online db
-
+- add basemodel
+- add salt to hashing
+- add frontend?
+- migrate to better db?
