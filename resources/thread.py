@@ -21,6 +21,9 @@ class ThreadResource(Resource):
     def delete(cls, id:int):
         thread = ThreadModel.find_by_id(id)
         if thread:
+            posts = thread.posts
+            for post in posts:
+                post.delete_from_db()
             thread.delete_from_db()
             return {'msg' : 'thread has been deleted'}
         return {'msg' : 'thread not found'}, 404
