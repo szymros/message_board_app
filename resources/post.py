@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request
-from flask_jwt_extended import jwt_required, get_jwt, get_jti
+from flask_jwt_extended import jwt_required, get_jwt, get_jti, get_jwt_identity
 
 from schemas.post import PostSchema
 from models.post import PostModel
@@ -35,6 +35,9 @@ class CreatePost(Resource):
             new_thread = ThreadModel()
             new_thread.save_to_db()
             json["thread_id"] = new_thread.id
+        elif not ThreadModel.find_by_id(json['thread_id']):
+            return {'msg' : 'thread not found'}
+        json['user_id'] = get_jwt_identity()
         new_post = post_schema.load(json)   
         if new_post:
             new_post.save_to_db()
