@@ -1,8 +1,8 @@
 from db import db
+from models.basemodel import BaseModel
 
-class UserModel(db.Model):
+class UserModel(BaseModel):
     __tablename__= 'user'
-    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(1000), nullable=False)
     
@@ -11,19 +11,6 @@ class UserModel(db.Model):
     #lazy is a loader option of relationships im not sure how to it really wokrs
     #todo read docs about lazy
     
-
-    @classmethod
-    def find_by_id(cls, id:int):
-        return cls.query.filter_by(id=id).first()
-
     @classmethod
     def find_by_name(cls, name:str):
         return cls.query.filter_by(username=name).first()
-
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete_from_db(self):
-        db.session.add(self)
-        db.session.commit()
