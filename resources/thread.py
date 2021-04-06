@@ -17,7 +17,7 @@ class ThreadResource(Resource):
         return{"msg" : "thread not found"}, 404
 
     @classmethod
-    @jwt_required()
+    @jwt_required(fresh=True)
     def delete(cls, id:int):
         thread = ThreadModel.find_by_id(id)
         if thread:

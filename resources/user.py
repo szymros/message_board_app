@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from werkzeug.security import safe_str_cmp
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_jwt_identity
 from passlib.hash import pbkdf2_sha256
 
 from db import db
@@ -26,7 +26,7 @@ class UserResource(Resource):
         else:
             return {'msg' : 'user not found'}, 404
 
-    @jwt_required()
+    @jwt_required(fresh=True)
     def delete(cls, id:int):
         user = UserModel.find_by_id(id)
         if user:
@@ -54,7 +54,6 @@ class UserLogin(Resource):
     def post(cls):
         data = request.get_json()
         user = UserModel.find_by_name(data['username'])
-        #todo add salt to hash
         if user and pbkdf2_sha256.verify(data['password'], user.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             return{'access_token' : access_token}, 200
@@ -67,3 +66,11 @@ class UserLogout(Resource):
         jti = get_jwt()['jti']
         BLOCKLIST.add(jti)
         return {'msg' : 'user logged out'}
+
+class TokenRefresh(Resource):
+    @classmethod
+    @jwt_required(refresh=True)
+    def get():
+        user = get_jwt_identity
+        new_token = create_access_token(identity=user, fresh=False)
+        return {'new_token' : new_token}
