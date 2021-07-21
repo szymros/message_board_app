@@ -1,4 +1,0 @@
-- add frontend?
-- migrate to better db?
-- could add token refresh and token claims
-- add "only owners can delete their posts"?
